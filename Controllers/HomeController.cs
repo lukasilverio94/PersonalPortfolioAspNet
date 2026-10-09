@@ -130,6 +130,18 @@ public class HomeController : Controller
                 Name = "SQL Server",
                 Category = "Database",
                 ProficiencyLevel = 5
+            },
+            new()
+            {
+                Name = "Docker",
+                Category = "DevOps",
+                ProficiencyLevel = 3
+            },
+            new()
+            {
+                Name = "Kubernetes",
+                Category = "DevOps",
+                ProficiencyLevel = 2
             }
         };
     }

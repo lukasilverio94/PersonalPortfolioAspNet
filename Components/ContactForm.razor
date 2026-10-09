@@ -1,4 +1,7 @@
 @using PersonalPortfolio.Models;
+@using System.Net.Http.Json
+@inject IHttpClientFactory HttpClientFactory
+@inject NavigationManager Navigation
 
 <div class="card">
     <div class="card-body">
@@ -62,8 +65,35 @@
     private bool isSuccess = false;
     private string statusMessage = string.Empty;
 
-    private Task SubmitMessage()
+    private async Task SubmitMessage()
     {
-        return Task.CompletedTask;
+        isSubmitting = true;
+        statusMessage = string.Empty;
+
+        try
+        {
+            var client = HttpClientFactory.CreateClient();
+            var endpoint = new Uri(new Uri(Navigation.BaseUri), "api/Contact");
+            var response = await client.PostAsJsonAsync(endpoint, contactMessage);
+
+            isSuccess = response.IsSuccessStatusCode;
+            statusMessage = isSuccess
+                ? "Message received successfully!"
+                : "Your message could not be sent. Please try again.";
+
+            if (isSuccess)
+            {
+                contactMessage = new ContactMessage();
+            }
+        }
+        catch
+        {
+            isSuccess = false;
+            statusMessage = "Your message could not be sent. Please try again.";
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
     }
 }

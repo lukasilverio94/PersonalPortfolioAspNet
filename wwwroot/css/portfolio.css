@@ -11,11 +11,15 @@ body {
     color: var(--primary-color);
 }
 
+textarea {
+    resize: none;
+}
+
 .hero-section {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
     padding: 100px 25px;
-    min-height: 100vh;
+    min-height: 60vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,5 +41,3 @@ body {
 .skill-card .badge {
     max-width: 150px;
 }
-
-/* Add more custom styles for skill badges, animations, etc. */
