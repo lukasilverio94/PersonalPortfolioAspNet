@@ -1,8 +1,37 @@
-﻿@{
+﻿@model PersonalPortfolio.Models.HomeViewModel
+@using PersonalPortfolio.Components
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="hero-section mb-5 w-100">
+    <div class="text-center mb-4">
+        <h1 class="display-4">My Portfolio</h1>
+        <p class="lead">A selection of recent projects and the technologies I use.</p>
+    </div>
+
+    <h2 class="h3 mb-3">Featured Projects</h2>
+    <div class="row">
+        @foreach (var project in Model.Projects)
+        {
+            <component type="typeof(ProjectCard)" render-mode="ServerPrerendered" param-Project="project" />
+        }
+    </div>
+</section>
+
+<section class="mb-5">
+    <h2 class="h3 mb-3">Skills</h2>
+    <div class="d-flex flex-wrap gap-2">
+        @foreach (var skill in Model.Skills)
+        {
+            <component type="typeof(SkillCard)" render-mode="ServerPrerendered" param-Skill="skill" />
+        }
+    </div>
+</section>
+
+<section class="row justify-content-center mb-4">
+    <div class="col-lg-8">
+        <component type="typeof(ContactForm)" render-mode="ServerPrerendered" />
+    </div>
+</section>

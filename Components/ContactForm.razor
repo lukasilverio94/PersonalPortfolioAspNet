@@ -1,0 +1,69 @@
+@using PersonalPortfolio.Models;
+
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title">Get In Touch</h3>
+
+        @if (!string.IsNullOrEmpty(statusMessage))
+        {
+            <div class="alert @(isSuccess ? "alert-success" : "alert-danger")" role="alert">
+                @statusMessage
+            </div>
+        }
+        <EditForm Model="contactMessage" OnValidSubmit="SubmitMessage">
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger mb-3" />
+
+            <div class="mb-3">
+                <label for="contact-name" class="form-label">Name</label>
+                <InputText id="contact-name" class="form-control" @bind-Value="contactMessage.Name"
+                           autocomplete="name" />
+                <ValidationMessage For="@(() => contactMessage.Name)" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label for="contact-email" class="form-label">Email</label>
+                <InputText id="contact-email" type="email" class="form-control" @bind-Value="contactMessage.Email"
+                           autocomplete="email" />
+                <ValidationMessage For="@(() => contactMessage.Email)" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label for="contact-subject" class="form-label">Subject</label>
+                <InputText id="contact-subject" class="form-control" @bind-Value="contactMessage.Subject" />
+                <ValidationMessage For="@(() => contactMessage.Subject)" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label for="contact-message" class="form-label">Message</label>
+                <InputTextArea id="contact-message" class="form-control" @bind-Value="contactMessage.Message"
+                               rows="5" />
+                <ValidationMessage For="@(() => contactMessage.Message)" class="text-danger" />
+            </div>
+
+            <button type="submit" class="btn btn-primary" disabled="@isSubmitting" aria-busy="@isSubmitting">
+                @if (isSubmitting)
+                {
+                    <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                    <span>Sending...</span>
+                }
+                else
+                {
+                    <span>Send Message</span>
+                }
+            </button>
+
+        </EditForm>
+    </div>
+</div>
+@code {
+    private ContactMessage contactMessage = new ContactMessage();
+    private bool isSubmitting = false;
+    private bool isSuccess = false;
+    private string statusMessage = string.Empty;
+
+    private Task SubmitMessage()
+    {
+        return Task.CompletedTask;
+    }
+}

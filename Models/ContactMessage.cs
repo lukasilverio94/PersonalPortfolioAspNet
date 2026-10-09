@@ -11,8 +11,6 @@ namespace PersonalPortfolio.Models
         [EmailAddress]
         public string Email { get; set; } = string.Empty;
 
-        // Add Subject and Message properties with appropriate validation
-        // Your code here
         [Required]
         [StringLength(200)]
         public string Subject { get; set; } = string.Empty;
